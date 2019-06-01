@@ -1,0 +1,5 @@
+bools = [True, True, False]
+nums = [[1,2],[3,4,5]]
+add a b c = a + b + c
+copy a = (a, a)
+apply f a = f a

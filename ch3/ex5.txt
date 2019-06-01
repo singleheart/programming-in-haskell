@@ -1,0 +1,6 @@
+일반적으로 두 함수가 서로 같다고 말하려면 모든 입력에 대해 출력이 똑같아야 하는데 입력의 경우의 수가 무한하므로 확인 불가능함
+입력의 경우의 수가 유한한 경우에 대해서만 두 함수가 서로 같다는 것을 확인할 수 있을 것
+
+Generally speaking, to show two functions are equivalent, we must check output of the functions are equal for the same inputs.
+However, this is impossible because the kinds of inputs are infinite so we cannot checkout every case systematically.
+Just finite cases are checkable.
