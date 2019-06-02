@@ -1,2 +1,2 @@
 third :: [a] -> a
-third (x0:x1:x2:xs) = x2
+third (_:_:x:xs) = x
