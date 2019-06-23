@@ -24,9 +24,9 @@ any'' f (x:xs) = f x || any'' f xs
 takeWhile' :: (a -> Bool) -> [a] -> [a]
 takeWhile' f =
   foldr
-    (\x y ->
+    (\x xs ->
        if f x
-         then x : y
+         then x : xs
          else [])
     []
 
@@ -41,10 +41,10 @@ takeWhile'' f (x:xs) =
 dropWhile' :: (a -> Bool) -> [a] -> [a]
 dropWhile' f =
   foldl
-    (\x y ->
-       if f y
+    (\xs x ->
+       if f x
          then []
-         else x ++ [y])
+         else xs ++ [x])
     []
 
 dropWhile'' :: (a -> Bool) -> [a] -> [a]
