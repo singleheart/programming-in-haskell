@@ -1,55 +1,53 @@
 -- a. all
 all :: (a -> Bool) -> [a] -> Bool
-all f = and . map f
+all p = and . map p
 
 all' :: (a -> Bool) -> [a] -> Bool
-all' f = foldr (\x y -> f x && y) True
+all' p = foldr (\x y -> p x && y) True
 
 all'' :: (a -> Bool) -> [a] -> Bool
-all'' f [] = True
-all'' f (x:xs) = f x && all'' f xs
+all'' p [] = True
+all'' p (x:xs) = p x && all'' p xs
 
 -- b. any
 any :: (a -> Bool) -> [a] -> Bool
-any f = or . map f
+any p = or . map p
 
 any' :: (a -> Bool) -> [a] -> Bool
-any' f = foldr (\x y -> f x || y) False
+any' p = foldr (\x y -> p x || y) False
 
 any'' :: (a -> Bool) -> [a] -> Bool
-any'' f [] = False
-any'' f (x:xs) = f x || any'' f xs
+any'' p [] = False
+any'' p (x:xs) = p x || any'' p xs
 
 -- c. takeWhile
 takeWhile' :: (a -> Bool) -> [a] -> [a]
-takeWhile' f =
+takeWhile' p =
   foldr
     (\x xs ->
-       if f x
+       if p x
          then x : xs
          else [])
     []
 
 takeWhile'' :: (a -> Bool) -> [a] -> [a]
-takeWhile'' f [] = []
-takeWhile'' f (x:xs) =
-  if f x
-    then x : takeWhile'' f xs
-    else []
+takeWhile'' p [] = []
+takeWhile'' p (x:xs)
+  | p x = x : takeWhile'' p xs
+  | otherwise = []
 
 -- d. dropWhile
 dropWhile' :: (a -> Bool) -> [a] -> [a]
-dropWhile' f =
+dropWhile' p =
   foldl
     (\xs x ->
-       if f x
+       if p x
          then []
          else xs ++ [x])
     []
 
 dropWhile'' :: (a -> Bool) -> [a] -> [a]
-dropWhile'' f [] = []
-dropWhile'' f (x:xs) =
-  if f x
-    then dropWhile'' f xs
-    else x : xs
+dropWhile'' p [] = []
+dropWhile'' p (x:xs)
+  | p x = dropWhile'' p xs
+  | otherwise = x : xs
