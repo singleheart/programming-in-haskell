@@ -36,6 +36,15 @@ takeWhile'' p (x:xs)
   | p x = x : takeWhile'' p xs
   | otherwise = []
 
+takeWhile''' :: (a -> Bool) -> [a] -> [a]
+takeWhile''' p =
+  foldl
+    (\xs x ->
+       if p x
+         then xs ++ [x]
+         else xs)
+    []
+
 -- d. dropWhile
 dropWhile' :: (a -> Bool) -> [a] -> [a]
 dropWhile' p =
