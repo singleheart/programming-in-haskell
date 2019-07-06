@@ -1,0 +1,18 @@
+class Eq a where
+  (==), (/=) :: a -> a -> Bool
+  x /= y = not (x == y)
+
+instance Eq Bool where
+  False == False = True
+  True == True = True
+  _ == _ = True
+
+instance Eq (Maybe a) where
+  Nothing == Nothing = True
+  Just x == Just y = x == y
+  _ == _ = False
+
+instance Eq [a] where
+  [] == [] = True
+  (x:xs) == (y:ys) = x == y && xs == ys
+  _ == _ = False
