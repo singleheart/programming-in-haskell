@@ -74,3 +74,6 @@ life b = do
 
 wait :: Int -> IO ()
 wait n = sequence_ [return () | _ <- [1 .. n]]
+
+main :: IO ()
+main = life glider

@@ -43,3 +43,6 @@ match xs ys =
     else '-'
   | x <- xs
   ]
+
+main :: IO ()
+main = hangman
