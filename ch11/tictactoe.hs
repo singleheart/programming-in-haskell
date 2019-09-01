@@ -22,7 +22,7 @@ empty :: Grid
 empty = replicate size (replicate size B)
 
 full :: Grid -> Bool
-full = all (/= B) . concat
+full = notElem B . concat
 
 turn :: Grid -> Player
 turn g =
@@ -192,4 +192,4 @@ play' g p
       [g'] -> play g' (next p)
   | p == X = do
     putStr "Player X is thinking... "
-    (play $! (bestmove g p)) (next p)
+    (play $! bestmove g p) (next p)
