@@ -83,3 +83,13 @@ move g i p =
 chop :: Int -> [a] -> [[a]]
 chop n [] = []
 chop n xs = take n xs : chop n (drop n xs)
+
+getNat :: String -> IO Int
+getNat prompt = do
+  putStr prompt
+  xs <- getLine
+  if xs /= [] && all isDigit xs
+    then return (read xs)
+    else do
+      putStrLn "ERROR: Invalid number"
+      getNat prompt
