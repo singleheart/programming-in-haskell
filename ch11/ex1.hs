@@ -72,7 +72,11 @@ depth :: Int
 depth = 9
 
 -- ex1 starts here
--- total (prune depth (gametree empty O)) is 549946
+-- total (gametree empty O) is 549946
 total :: Tree a -> Int
 total (Node _ []) = 1
 total (Node _ ts) = 1 + sum (map total ts)
+
+maxdepth :: Tree a -> Int
+maxdepth (Node _ []) = 0
+maxdepth (Node _ ts) = 1 + maximum (map maxdepth ts)
