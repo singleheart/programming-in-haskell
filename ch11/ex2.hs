@@ -179,6 +179,13 @@ play g p = do
   putGrid g
   play' g p
 
+-- ex2 starts here
+bestmoves :: Grid -> Player -> [Grid]
+bestmoves g p = [g' | Node (g', p') _ <- ts, p' == best]
+  where
+    tree = prune depth (gametree g p)
+    Node (_, best) ts = minimax tree
+
 play' :: Grid -> Player -> IO ()
 play' g p
   | wins O g = putStrLn "Player O wins!\n"
@@ -192,7 +199,7 @@ play' g p
         play' g p
       [g'] -> play g' (next p)
   | p == X = do
-    i <- System.Random.randomRIO (0, size ^ 2 - 1)
-    case move g i p of
-      [] -> play' g p
-      [g'] -> play g' (next p)
+    putStr "Player X is thinking... "
+    let bs = bestmoves g p
+    i <- System.Random.randomRIO (0, length bs - 1)
+    play (bs !! i) (next p)
