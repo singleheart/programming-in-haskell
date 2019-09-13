@@ -1,0 +1,49 @@
+-- pure :: Applicative f => a -> f a
+-- <*> :: f (a -> b) -> f a -> f b
+
+-- left
+-- id :: a -> a
+-- pure id :: f (a -> a)
+-- x :: f a
+-- pure id <*> x :: f a
+-- right 
+-- x :: f a 
+pure id <*> x = x
+
+-- left
+-- g :: a -> b
+-- x :: a
+-- g x :: b
+-- pure (g x) :: f b
+-- right
+-- pure g :: f (a -> b)
+-- pure x :: f a
+-- pure g <*> pure x :: f b
+pure (g x) = pure g <*> pure x
+
+-- left 
+-- x :: f (a -> b)
+-- pure y :: f a
+-- x <*> pure y :: f b
+-- right
+-- g :: a -> b
+-- y :: a
+-- g y :: b
+-- (\g -> g y) :: (a -> b) -> b
+-- pure (\g -> g y) :: f (a -> b) -> b
+-- pure (\g -> g y) <*> x :: f b
+x <*> pure y = pure (\g -> g y) <*> x
+
+-- left
+-- x :: b -> c
+-- y :: a -> b
+-- z :: a
+-- y <*> z :: f b
+-- x <*> (y <*> z) :: f c
+-- right
+-- (.) :: (b -> c) -> (a -> b) -> a -> c
+-- pure (.) :: f (b -> c) -> (a -> b) -> a -> c
+-- pure (.) <*> x :: f (a -> b) -> a -> c
+-- pure (.) <*> x <*> y :: f a -> c
+-- (pure (.) <*> x <*> y) <*> z :: f c
+x <*> (y <*> z) = (pure (.) <*> x <*> y) <*> z
