@@ -189,6 +189,7 @@ minimax (Node g ts)
     ts' = map minimax ts
     ps = [p | Node (_, p) _ <- ts']
 
+-- ex11.4d
 minimaxAB :: Tree Grid -> Tree (Grid, Player)
 minimaxAB (Node g [])
   | wins O g = Node (g, O) []
