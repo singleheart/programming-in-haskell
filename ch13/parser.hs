@@ -181,7 +181,7 @@ factor = do
 
 eval :: String -> Int
 eval xs =
-  case (parse expr xs) of
+  case parse expr xs of
     [(n, [])] -> n
     [(_, out)] -> error ("Unused input " ++ out)
     [] -> error "Invalid input"
