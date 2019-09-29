@@ -1,0 +1,3 @@
+The final simplication reduces steps exponentiationally for n-ary expressions.
+If this had not been made, parsing a single number requires four steps: expr, term, factor, and nat.
+After the simplication, parsing may skip two steps: expr and term.
