@@ -97,5 +97,4 @@ comment :: Parser ()
 comment = do
     symbol "--"
     many (sat (/= eol))
-    char eol
     return ()
