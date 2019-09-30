@@ -129,17 +129,20 @@ symbol xs = token (string xs)
 -- a. grammar
 -- expr ::= (expr + | expr - | e) term
 
+-- b. implementation
+-- c. infinite recursive call
 expr :: Parser Int
-expr = do
-  t <- term
-  do e <- expr
-     symbol "+"
-     return (t + e)
-     <|> do 
-      symbol "-" 
+expr = pre <*> term
+  where
+    pre = do 
       e <- expr
-      return (t - e)
-     <|> return t
+      symbol "+"
+      return (e+)
+      <|> do 
+        e <- expr
+        symbol "-" 
+        return (e-)
+      <|> empty
 
 term :: Parser Int
 term = do
