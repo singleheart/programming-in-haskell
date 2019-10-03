@@ -130,19 +130,45 @@ symbol xs = token (string xs)
 -- expr ::= (expr + | expr - | e) term
 
 -- b. implementation
--- c. infinite recursive call
-expr :: Parser Int
-expr = pre <*> term
+-- c. problem: cannot determine where expr ends
+--  thus stuck in an infinite loop
+expr' :: Parser Int
+expr' = pre <*> term
   where
     pre = do 
-      e <- expr
+      e <- expr'
       symbol "+"
       return (e+)
       <|> do 
-        e <- expr
+        e <- expr'
         symbol "-" 
         return (e-)
       <|> empty
+
+
+-- d. fixed expr
+exprop :: Parser (Int, Char)
+exprop = do 
+  t <- term
+  do
+    symbol "+"
+    return (t, '+')
+    <|> do
+      symbol "-"
+      return (t, '-')
+      
+
+expr :: Parser Int
+expr = do
+  es <- many exprop
+  t <- term
+  return (fst (foldl1 op (es ++ [(t, ' ')])))
+  where
+    op (vl, sl) (vr, sr) =
+      case sl of
+        '+' -> (vl + vr, sr)
+        '-' -> (vl - vr, sr)
+
 
 term :: Parser Int
 term = do
