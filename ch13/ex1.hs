@@ -95,6 +95,6 @@ eol = '\n'
 
 comment :: Parser ()
 comment = do
-    symbol "--"
+    string "--"
     many (sat (/= eol))
     return ()
