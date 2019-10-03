@@ -174,6 +174,12 @@ I have also participated in a [Haskell programming study](<https://gitlab.com/on
 
 ### Chapter 14
 
+[14.5.1](ch14/ex1.hs)
+[14.5.2](ch14/ex2.hs)
+[14.5.3](ch14/ex3.hs)
+[14.5.4](ch14/ex4.hs)
+[14.5.5](ch14/ex5.hs)
+
 ### Chapter 15
 
 ### Chapter 16
