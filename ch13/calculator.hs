@@ -226,6 +226,7 @@ buttons = standard ++ extra
 showbox :: IO ()
 showbox = sequence_ [writeat (1, y) b | (y, b) <- zip [1 ..] box]
 
+display :: String -> IO ()
 display xs = do
   writeat (3, 2) (replicate 13 ' ')
   writeat (3, 2) (reverse (take 13 (reverse xs)))
