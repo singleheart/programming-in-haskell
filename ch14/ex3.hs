@@ -14,3 +14,8 @@ instance Foldable Maybe where
     -- foldl :: (a -> b -> a) -> a -> Maybe b -> a
     foldl _ _ Nothing = mempty
     foldl f v (Just b) = f v b
+
+instance Traversable Maybe where
+    -- traverse :: Applicative f => (a -> f b) -> Maybe a -> f (Maybe b)
+    traverse g Nothing = pure Nothing
+    traverse g (Just a) = Just <$> g a
