@@ -2,7 +2,7 @@
 
 Solutions for exercises in ["Programming in Haskell" 2nd ed. by Graham Hutton](<http://www.cs.nott.ac.uk/~pszgmh/pih.html>)
 
-I have also participated in a [Haskell programming study](<https://gitlab.com/onevirus/fp-study>)
+I have also been participating in a [Haskell programming study](<https://gitlab.com/onevirus/fp-study>)
 
 ## Environment
 
