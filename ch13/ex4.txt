@@ -1,3 +1,4 @@
 The final simplication reduces steps exponentiationally for n-ary expressions.
-If this had not been made, parsing a single number requires four steps: expr, term, factor, and nat.
-After the simplication, parsing may skip two steps: expr and term.
+In the third grammar, even a single number may be parsed as two cases: eval + term and eval, 
+because parser cannot determine whether + exists or not without parsing eval.
+The simplication removes duplicated recursive call.
