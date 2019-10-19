@@ -182,6 +182,13 @@ I have also been participating in a [Haskell programming study](<https://gitlab.
 
 ### Chapter 15
 
+[15.5.1](ch15/ex1.txt)
+[15.5.2]
+[15.5.3]
+[15.5.4]
+[15.5.5]
+[15.5.6]
+
 ### Chapter 16
 
 ### Chapter 17

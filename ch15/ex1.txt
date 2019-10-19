@@ -1,0 +1,13 @@
+1 + (2*3)
+both 2*3
+
+(1+2) * (2+3)
+innermost 1+2
+
+fst (1+2, 2+3)
+innermost 1+2
+outermost fst (1+2, 2+3)
+
+(\x -> 1 + x) (2*3)
+innermost 2*3
+outermost (\x -> 1 + x) (2*3)
