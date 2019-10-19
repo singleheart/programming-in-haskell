@@ -186,7 +186,7 @@ I have also been participating in a [Haskell programming study](<https://gitlab.
 [15.5.2](ch15/ex2.txt)
 [15.5.3](ch15/ex3.txt)
 [15.5.4](ch15/ex4.hs)
-[15.5.5]
+[15.5.5](ch15/ex5.hs)
 [15.5.6]
 
 ### Chapter 16
