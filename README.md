@@ -182,12 +182,12 @@ I have also been participating in a [Haskell programming study](<https://gitlab.
 
 ### Chapter 15
 
-[15.5.1](ch15/ex1.txt)
-[15.5.2](ch15/ex2.txt)
-[15.5.3](ch15/ex3.txt)
-[15.5.4](ch15/ex4.hs)
-[15.5.5](ch15/ex5.hs)
-[15.5.6]
+[15.9.1](ch15/ex1.txt)
+[15.9.2](ch15/ex2.txt)
+[15.9.3](ch15/ex3.txt)
+[15.9.4](ch15/ex4.hs)
+[15.9.5](ch15/ex5.hs)
+[15.9.6](ch15/ex6.hs)
 
 ### Chapter 16
 
