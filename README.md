@@ -191,6 +191,18 @@ I have also been participating in a [Haskell programming study](<https://gitlab.
 
 ### Chapter 16
 
+[16.9.1](ch16/ex1.txt)
+[16.9.2](ch16/ex2.txt)
+[16.9.3](ch16/ex3.txt)
+[16.9.4](ch16/ex4.txt)
+[16.9.5](ch16/ex5.txt)
+[16.9.6](ch16/ex6.txt)
+[16.9.7](ch16/ex7.txt)
+[16.9.8](ch16/ex8.txt)
+[16.9.9](ch16/ex9.txt)
+[16.9.10](ch16/ex10.txt)
+[16.9.11](ch16/ex11.txt)
+
 ### Chapter 17
 
 ## Source codes
