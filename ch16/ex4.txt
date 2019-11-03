@@ -1,0 +1,39 @@
+[] ++ ys = ys
+(x:xs) ++ ys = x : (xs ++ ys)
+
+Prove on xs:
+xs ++ [] = xs
+
+Base case:
+[] ++ [] 
+= {applying ++}
+[]
+
+Inductive case:
+(x:xs) ++ []
+= {applying ++}
+x : (xs ++ [])
+= {induction hypothesis}
+x : xs
+
+
+Prove
+xs ++ (ys ++ zs) = (xs ++ ys) ++ zs
+
+Base case:
+[] ++ (ys ++ zs)
+= {applying ++}
+ys ++ zs
+= {unapplying ++}
+([] ++ ys) ++ zs
+
+Inductive case:
+(x:xs) ++ (ys ++ zs) 
+= {applying ++}
+x : (xs ++ (ys ++ zs))
+= {induction hypothesis}
+x : ((xs ++ ys) ++ zs)
+= {unapplying ++}
+x:(xs ++ ys) ++ zs
+= {unapplying ++}
+((x:xs) ++ ys) ++ zs
