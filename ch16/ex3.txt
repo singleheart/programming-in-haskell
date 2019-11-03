@@ -19,7 +19,7 @@ all (== x) (x : replicate n x)
 (== x) x && all (== x) (replicate n x)
 = {applying ==}
 True && all (== x) (replicate n x)
-= {induction hyphothesis}
+= {induction hypothesis}
 True && True
 = {applying &&}
 True
