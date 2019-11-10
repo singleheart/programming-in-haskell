@@ -196,7 +196,9 @@ I have also been participating in a [Haskell programming study](<https://gitlab.
 [16.9.3](ch16/ex3.txt)
 [16.9.4](ch16/ex4.txt)
 [16.9.5](ch16/ex5.txt)
-[16.9.6](ch16/ex6.txt)
+16.9.6
+[solution](ch16/ex6.txt)
+[code](ch16/ex6.hs)
 [16.9.7](ch16/ex7.txt)
 [16.9.8](ch16/ex8.txt)
 [16.9.9](ch16/ex9.txt)

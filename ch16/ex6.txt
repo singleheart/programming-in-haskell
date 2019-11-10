@@ -1,0 +1,29 @@
+data Tree = Leaf Int | Node Tree Tree
+
+countNodes (Leaf _) = 0
+countNodes (Node l r) = countNodes l + 1 + countNodes r
+
+countLeaves (Leaf _) = 1
+countLeaves (Node l r) = countLeaves l + countLeaves r
+
+prove countNodes Tree + 1 == countLeaves Tree
+
+Base case:
+countNodes (Leaf _) + 1
+= {applying countNodes}
+0 + 1
+= {applying +}
+1
+= {unapplying countLeaves}
+countLeaves (Leaf _)
+
+Inductive case:
+countNodes (Node l r) + 1
+= {applying countNodes}
+countNodes l + 1 + countNodes r + 1
+= {induction hypothesis for countNodes l}
+countLeaves l + countNodes r + 1
+= {induction hypothesis for countNodes r}
+countLeaves l + countLeaves r
+= {unapplying countLeaves}
+countLeaves (Node l r)
