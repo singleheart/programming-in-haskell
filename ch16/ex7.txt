@@ -1,0 +1,49 @@
+fmap id = id
+fmap (g . h) = fmap g . fmap h
+
+fmap :: (a -> b) -> Maybe a -> Maybe b
+fmap g Nothing = Nothing
+fmap g (Just a) = Just (g a)
+
+Proof of id
+case Nothing:
+fmap id Nothing
+= {applying fmap}
+Nothing
+= {unapplying id}
+id Nothing
+
+case Just:
+fmap id (Just a)
+= {applying fmap}
+Just (id a)
+= {applying id}
+Just a
+= {unapplying id}
+id (Just a)
+
+
+Proof of composition
+case Nothing
+fmap (g . h) Nothing
+= {applying fmap}
+Nothing
+= {unapplying fmap}
+fmap g Nothing
+= {unapplying fmap}
+fmap g (fmap h Nothing)
+= {unapplying .}
+(fmap g . fmap h) Nothing
+
+case Just:
+fmap (g . h) (Just a)
+= {applying fmap}
+Just (g . h) a
+= {applying .}
+Just (g (h a))
+= {unapplying fmap}
+fmap g (Just (h a))
+= {unapplying fmap}
+fmap g (fmap h (Just a))
+= {unapplying .}
+(fmap g . fmap h) (Just a)
