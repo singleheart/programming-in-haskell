@@ -1,0 +1,27 @@
+take 0 _ = []
+take _ [] = []
+take n (x:xs) = x : take (n - 1) xs
+
+drop 0 xs = xs
+drop _ [] = []
+drop n (_:xs) = drop (n - 1) xs
+
+take n xs ++ drop n xs == xs
+
+Base case:
+take 0 xs ++ drop 0 xs
+= {applying take}
+[] ++ drop 0 xs
+= {applying drop}
+[] ++ xs
+= {applying ++}
+xs
+
+Inductive case:
+take (n+1) (x:xs) ++ drop (n+1) (x:xs)
+= {applying take}
+x : take n xs ++ drop (n+1) (x:xs)
+= {applying drop}
+x : take n xs ++ drop n xs
+= {induction hypothesis}
+x : xs
