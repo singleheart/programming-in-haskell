@@ -1,0 +1,149 @@
+1. pure id <*> x = x
+2. pure (g x) = pure g <*> pure x
+3. x <*> pure y = pure (\g -> g y) <*> x
+4. x <*> (y <*> z) = (pure (.) <*> x <*> y) <*> z
+
+pure = Just
+
+Nothing <*> _ = Nothing
+(Just g) <*> mx = fmap g mx
+
+fmap id = id
+fmap (g . h) = fmap g . fmap h
+
+fmap :: (a -> b) -> Maybe a -> Maybe b
+fmap g Nothing = Nothing
+fmap g (Just a) = Just (g a)
+
+
+Proof of 1. pure id <*> x = x
+case Nothing:
+pure id <*> Nothing
+= {applying pure}
+Just id <*> Nothing
+= {applying <*>}
+fmap id Nothing
+= {applying fmap}
+Nothing
+
+case Just:
+pure id <*> Just x
+= {applying pure}
+Just id <*> Just x
+= {applying <*>}
+fmap id (Just x)
+= {applying fmap}
+Just (id x)
+= {applying id}
+Just x
+
+
+Proof of 2. pure (g x) = pure g <*> pure x
+case Nothing:
+pure (g Nothing) 
+= {applying pure}
+Just (g Nothing)
+= {unapplying fmap}
+fmap g (Just Nothing)
+= {unapplying <*>}
+Just g <*> Just Nothing
+= {unapplying pure}
+pure g <*> pure Nothing
+
+case Just:
+pure (g (Just a))
+= {applying pure}
+Just (g (Just a))
+= {unapplying fmap}
+fmap g (Just (Just a))
+= {unapplying <*>}
+Just g <*> Just (Just a)
+= {unapplying pure}
+pure g <*> pure (Just a)
+
+
+Proof of 3. x <*> pure y = pure (\g -> g y) <*> x
+case Nothing:
+Nothing <*> pure y
+= {applying <*>}
+Nothing
+= {unapplying fmap}
+fmap (\g -> g y) Nothing
+= {unapplying <*>}
+Just (\g -> g y) <*> Nothing
+= {unapplying pure}
+pure (\g -> g y) <*> Nothing
+
+case Just:
+Just a <*> pure y
+= {applying <*>}
+fmap a (pure y)
+= {applying pure}
+fmap a (Just y)
+= {applying fmap}
+Just (a y)
+= {unapplying (\g -> g y)}
+Just ((\g -> g y) a)
+= {unapplying fmap}
+fmap (\g -> g y) (Just a)
+= {unapplying <*>}
+Just (\g -> g y) <*> Just a
+= {unapplying pure}
+pure (\g -> g y) <*> Just a
+
+
+Proof of 4. x <*> (y <*> z) = (pure (.) <*> x <*> y) <*> z
+case Nothing:
+Nothing <*> (y <*> z) 
+= {applying <*>}
+Nothing
+= {unapplying <*>}
+Nothing <*> z
+= {unapplying <*>}
+(Nothing <*> y) <*> z
+= {unapplying fmap}
+((fmap . Nothing) <*> y) <*> z
+= {unapplying <*>}
+(Just (.) <*> Nothing <*> y) <*> z
+= {unapplying pure}
+(pure (.) <*> Nothing <*> y) <*> z
+
+case Just a, Nothing:
+(Just a) <*> (Nothing <*> z) 
+= {applying <*>}
+fmap a (Nothing <*> z)
+= {applicative <*>}
+fmap a Nothing
+= {applying fmap}
+Nothing
+= {unapplying <*>}
+Nothing <*> z
+= {unapplying fmap}
+fmap (. a) Nothing <*> z
+= {unapplying <*>}
+(Just (. a) <*> Nothing) <*> z
+= {unapplying fmap}
+((fmap . (Just a)) <*> Nothing) <*> z
+= {unapplying <*>}
+(Just (.) <*> (Just a) <*> Nothing) <*> z
+= {unapplying pure}
+(pure (.) <*> (Just a) <*> Nothing) <*> z
+
+case Just a, Just b:
+(Just a) <*> ((Just b) <*> z) 
+= {applying <*>}
+fmap a ((Just b) <*> z)
+= {applying <*>}
+fmap a (fmap b z)
+= {unapplying .}
+fmap (a . b) z
+= {unapplying <*>}
+Just (a . b) <*> z
+= {unapplying applicative property 3}
+(Just (. a) <*> (Just b)) <*> z
+= {unapplying fmap}
+((fmap . (Just a)) <*> (Just b)) <*> z
+= {unapplying <*>}
+(Just (.) <*> (Just a) <*> (Just b)) <*> z
+= {unapplying pure}
+(pure (.) <*> (Just a) <*> (Just b)) <*> z
