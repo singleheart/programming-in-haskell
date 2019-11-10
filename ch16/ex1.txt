@@ -11,8 +11,6 @@ Inductive case:
 add (Succ x) (Succ m)
 = {applying add}
 Succ (add x (Succ m))
-= {applying add}
-Succ (add x (Succ m))
 = {induction hypothesis}
 Succ (Succ (add x m))
 = {unapplying add}

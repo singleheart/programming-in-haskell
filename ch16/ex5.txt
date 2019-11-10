@@ -20,8 +20,10 @@ xs
 Inductive case:
 take (n+1) (x:xs) ++ drop (n+1) (x:xs)
 = {applying take}
-x : take n xs ++ drop (n+1) (x:xs)
+(x : take n xs) ++ drop (n+1) (x:xs)
 = {applying drop}
-x : take n xs ++ drop n xs
+(x : take n xs) ++ drop n xs
+= {applying ++}
+x : (take n xs ++ drop n xs)
 = {induction hypothesis}
 x : xs
