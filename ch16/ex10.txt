@@ -1,0 +1,154 @@
+1. return x >>= f = f x
+2. mx >>= return = mx
+3. (mx >>= f) >>= g = mx >>= (\x -> (f x >>= g))
+
+Definition of list monad functions:
+return x = [x]
+xs >>= f = [y | x <- xs, y <- f x]
+
+List comprehension properties
+Distribution law: [z | z <- (xs ++ ys)] = [z | z <- xs] ++ [z | z <- ys]
+Proof
+Base case:
+[z | z <- ([] ++ ys)] 
+= {identity of ++}
+[z | z <- ys]
+= {identity of ++}
+[] ++ [z | z <- ys]
+= {property of empty list comprehension}
+[z | z <- []] ++ [z | z <- ys]
+
+Inductive case:
+[z | z <- ((x:xs) ++ ys)] 
+= {unapplying ++}
+[z | z <- ([x] ++ xs ++ ys)] 
+= {induction hypothesis}
+[z | z <- [x]] ++ [z | z <- xs ++ ys)] 
+= {induction hypothesis}
+[z | z <- [x]] ++ [z | z <- xs] ++ [z | z <- ys]
+= {induction hypothesis}
+[z | z <- [x] ++ xs] ++ [z | z <- ys]
+= {applying ++}
+[z | z <- (x:xs)] ++ [z | z <- ys]
+
+List comprehension empty property: [x | x <- []] = []
+List comprehension application property: [y | y <- f x] = f x
+
+List comprehension apply generator: [y | x <- xs, y <- [x]] = x
+Base case:
+[y | x <- [], y <- [x]] 
+= {list comprehension empty property}
+[]
+
+Inductive case:
+[y | z <- (x:xs), y <- [z]] 
+= {unapplying ++}
+[y | z <- [x] ++ [xs], y <- [z]] 
+= {distributivity of ++}
+[y | z <- [x], y <- [z]] ++ [y | z <- xs, y <- [z]]
+= {induction hypothesis}
+[y | z <- [x], y <- [z]] ++ xs
+= {definition of list comprehension}
+[x] ++ xs
+= {applying ++}
+(x:xs)
+
+
+Proof of Monad 1. return x >>= f = f x
+return x >>= f
+= {applying return}
+[x] >>= f
+= {applying >>=}
+[y | z <- [x], y <- f z]
+= {applying generator z <- [x]}
+[y | y <- f x]
+= {property of list comprehension}
+f x
+
+
+Proof of Monad 2. mx >>= return = mx
+Base case:
+[] >>= return 
+= {applying >>=}
+[y | x <- [], y <- return x]
+= {property of empty list comprehension}
+[]
+
+Inductive case:
+(x:xs) >>= return 
+= {applying >>=}
+[y | z <- (x:xs), y <- return z]
+= {applying return}
+[y | z <- (x:xs), y <- [z]]
+= {unapplying ++}
+[y | z <- [x] ++ xs, y <- [z]]
+= {distributivity}
+[y | z <- [x], y <- [z]] ++ [y | z <- xs, y <- [z]]
+= {property of list comprehension}
+[x] ++ [y | z <- xs, y <- [z]]
+= {unapplying return}
+[x] ++ [y | z <- xs, y <- return z]
+= {unapplying >>=}
+[x] ++ (xs >>= return)
+= {induction hypothesis}
+[x] ++ xs
+= {applying ++}
+x:xs
+
+
+Proof of Monad 3. (mx >>= f) >>= g = mx >>= (\x -> (f x >>= g))
+Base case:
+([] >>= f) >>= g 
+= {applying >>=}
+[y | x <- [], y <- f x] >>= g
+= {property of empty list comprehension}
+[] >>= g
+= {applying >>=}
+[y | x <- [], y <- g x]
+= {property of empty list comprehension}
+[]
+= {identity of empty list}
+[y | z <- [], y <- (\x -> (f x >>= g)) z]
+= {unapplying >>=}
+[] >>= (\x -> (f x >>= g))
+
+Inductive case:
+((x:xs) >>= f) >>= g 
+= {applying >>=}
+[y | z <- (x:xs), y <- f z] >>= g
+= {applying >>=}
+[b | a <- [y | z <- (x:xs), y <- f z], b <- g a]
+= {distributivity of ++}
+[b | a <- [y | z <- [x], y <- f z], b <- g a] ++ [b | a <- [y | z <- xs, y <- f z], b <- g a]
+= {property of list comprehension}
+[b | a <- [y | y <- f x], b <- g a] ++ [b | a <- [y | z <- xs, y <- f z], b <- g a]
+= {property of list comprehension}
+[b | a <- f x, b <- g a] ++ [b | a <- [y | z <- xs, y <- f z], b <- g a]
+= {unapplying >>=}
+[b | a <- f x, b <- g a] ++ ([y | z <- xs, y <- f z] >>= g)
+= {unapplying >>=}
+[b | a <- f x, b <- g a] ++ (xs >>= f >>= g)
+= {induction hypothesis}
+[b | a <- f x, b <- g a] ++ (xs >>= (\w -> (f w >>= g))
+= {applying >>=}
+[b | a <- f x, b <- g a] ++ [y | z <- xs, y <- (\w -> (f w >>= g)) z]
+= {applying \w}
+[b | a <- f x, b <- g a] ++ [y | z <- xs, y <- (f z >>= g)]
+= {unapplying >>=}
+[b | a <- f x, b <- g a] ++ (xs >>= (f z >>= g))
+= {applying >>=}
+[b | a <- f x, b <- g a] ++ (xs >>= [b | a <- f z, b <- g a])
+= {applying >>=}
+[b | a <- f x, b <- g a] ++ [y | z <- xs, y <- [b | a <- f z, b <- g a]]
+= {property of list comprehension}
+[y | y <- [b | a <- f x, b <- g a]] ++ [y | z <- xs, y <- [b | a <- f z, b <- g a]]
+= {unapplying generator a <- [x]}
+[y | z <- [x], y <- [b | a <- f z, b <- g a])] ++ [y | z <- xs, y <- [b | a <- f z, b <- g a]]
+= {distributivity of ++}
+[y | z <- (x:xs), y <- [b | a <- f z, b <- g a]]
+= {unapplying \w}
+[y | z <- (x:xs), y <- (\w -> [b | a <- f w, b <- g a]) z]
+= {unapplying >>=}
+(x:xs) >>= (\w -> [b | a <- f w, b <- g a])
+= {unapplying >>=}
+(x:xs) >>= (\w -> (f w >>= g))
