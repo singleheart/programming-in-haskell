@@ -32,7 +32,26 @@ Inductive case:
 [z | z <- (x:xs)] ++ [z | z <- ys]
 
 List comprehension empty property: [x | x <- []] = []
-List comprehension application property: [y | y <- f x] = f x
+List comprehension one element property: [x | x <- [y]] = [y]
+List comprehension application property: [y | y <- xs] = xs
+Base case:
+[y | y <- []]
+= {list comprehension empty property}
+[]
+
+Inductive case):
+[y | y <- (x:xs)]
+= {list notation}
+[y | y <- ([x] ++ xs)]
+= {distributivity}
+[y | y <- [x]] ++ [y | y <- xs]
+= {property of list comprehension}
+[x] ++ [y | y <- xs]
+= {induction hypothesis}
+[x] ++ xs
+= {applying ++}
+x:xs
+
 
 List comprehension apply generator: [y | x <- xs, y <- [x]] = x
 Base case:
@@ -48,7 +67,7 @@ Inductive case:
 [y | z <- [x], y <- [z]] ++ [y | z <- xs, y <- [z]]
 = {induction hypothesis}
 [y | z <- [x], y <- [z]] ++ xs
-= {definition of list comprehension}
+= {property of list comprehension}
 [x] ++ xs
 = {applying ++}
 (x:xs)
