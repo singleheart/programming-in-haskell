@@ -242,3 +242,7 @@ I have also been participating in a [Haskell programming study](<https://gitlab.
 
 [parser](ch13/parser.hs)
 [calculator](ch13/calculator.hs)
+
+### Chapter 17 Calculating compilers
+
+[compiler](ch17/compiler.hs)
