@@ -206,6 +206,7 @@ I have also been participating in a [Haskell programming study](<https://gitlab.
 [16.9.11](ch16/ex11.txt)
 
 ### Chapter 17
+[17.8.1](ch17/ex1.hs)
 
 ## Source codes
 
