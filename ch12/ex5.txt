@@ -35,15 +35,15 @@ pure (g x) = pure g <*> pure x
 x <*> pure y = pure (\g -> g y) <*> x
 
 -- left
--- x :: b -> c
--- y :: a -> b
--- z :: a
+-- x :: f (b -> c)
+-- y :: f (a -> b)
+-- z :: f a
 -- y <*> z :: f b
 -- x <*> (y <*> z) :: f c
 -- right
--- (.) :: (b -> c) -> (a -> b) -> a -> c
--- pure (.) :: f (b -> c) -> (a -> b) -> a -> c
--- pure (.) <*> x :: f (a -> b) -> a -> c
--- pure (.) <*> x <*> y :: f a -> c
+-- (.) :: (b -> c) -> (a -> b) -> (a -> c)
+-- pure (.) :: f ((b -> c) -> (a -> b) -> (a -> c))
+-- pure (.) <*> x :: f ((a -> b) -> (a -> c))
+-- pure (.) <*> x <*> y :: f (a -> c)
 -- (pure (.) <*> x <*> y) <*> z :: f c
 x <*> (y <*> z) = (pure (.) <*> x <*> y) <*> z
