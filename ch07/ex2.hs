@@ -48,9 +48,13 @@ takeWhile''' p =
 -- d. dropWhile
 
 dropWhile' :: (a -> Bool) -> [a] -> [a]
-dropWhile' f =foldl (\xs x -> if (f x) && ( length xs == 0) then [] else xs ++ [x])  []
-
-
+dropWhile' p =
+  foldl
+    (\xs x ->
+      if (p x) && (length xs == 0)
+         then []
+         else xs ++ [x])
+    []
 
 dropWhile'' :: (a -> Bool) -> [a] -> [a]
 dropWhile'' p [] = []
