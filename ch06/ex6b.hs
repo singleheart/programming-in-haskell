@@ -1,4 +1,4 @@
 concat' :: [[a]] -> [a]
-concat' [] = []
-concat' [x] = x
-concat' (x:xs) = x ++ concat' xs
+concat' [[]] = []
+concat' [[xs]] = xs
+concat' (xs:xss) = xs ++ concat' xss
